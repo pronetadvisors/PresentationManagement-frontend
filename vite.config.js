@@ -6,7 +6,7 @@ import path from 'path';
 export default defineConfig({
   plugins: [vue()],
   server: {
-    port: 8080,
+    port: 5010,
   },
   define: {
     'process.env': process.env
