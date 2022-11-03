@@ -1,44 +1,108 @@
 <template>
-  <div v-if="!settings" class="h-screen p-14" style="background-color: #1a2751;">
+  <div v-if="!settings" class="h-screen p-14">
     <img
       src="@/assets/HeaderLogo.jpg"
       alt="Logo"
-      class="max-w-4xl align-center mx-auto"
-      />
+      class="max-w-full align-center mx-auto"
+    />
     <div class="grid grid-cols-5 gap-4 mb-5">
-      <div class="text-white text-left col-span-2">
+      <div class="text-gray-800 text-left col-span-2">
         <h1 class="text-6xl font-light">{{ date.toLocaleTimeString() }}</h1>
-        <h2 class="text-3xl font-light text-gray-300 underline">{{ day }}, {{ month }} {{ date.getDate() }}</h2>
+        <h2 class="text-3xl font-light text-gray-600 underline">
+          {{ day }}, {{ month }} {{ date.getDate() }}
+        </h2>
       </div>
-      <div class="text-white text-right col-span-3">
+      <div class="text-gray-800 text-right col-span-3">
         <h2 class="text-8xl">{{ selectedLocation }}</h2>
       </div>
     </div>
 
-    <div class="max-h-[1200px] overflow-scroll scroll-smooth scroll-auto" id="scrollarea">
-      <div class="text-white" v-for="presentation in presentations">
-<!--        SCHEDULE -->
-        <div class="pt-6 flex mt-2" v-if="new Date(presentation.time) < date && new Date(presentation.endtime) > date">
-          <h2 class="text-3xl text-emerald-400 mx-5">In Progress</h2>
-          <h2 class="text-3xl">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>
+    <div
+      id="scrollarea"
+      class="max-h-[1200px] overflow-scroll scroll-smooth scroll-auto"
+    >
+      <div v-for="num in 15">
+        <div class="pt-6 flex mt-2">
+          <h2 class="text-3xl text-gray-800 mx-5">In Progress</h2>
+          <h2 class="text-3xl">10:30 AM - 11:30AM</h2>
         </div>
-        <div class="pt-6 flex mt-2" v-else-if="new Date(presentation.time) >= date && new Date(presentation.time).getDate() === date.getDate()">
-          <h2 class="text-3xl mx-6">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>
+        <div
+          class="text-gray-600 text-left mx-4 pb-1 border-b-2 border-slate-500"
+        >
+          <h2 class="text-5xl">Some Tutorial</h2>
+          <!--        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>-->
         </div>
-        <div class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500"  v-if="new Date(presentation.endtime) >= date && new Date(presentation.time).getDate() === date.getDate()">
+      </div>
+
+      <div v-for="presentation in presentations" class="text-gray-800">
+        <!--        SCHEDULE -->
+        <div
+          v-if="
+            new Date(presentation.time) < date &&
+            new Date(presentation.endtime) > date
+          "
+          class="pt-6 flex mt-2"
+        >
+          <h2 class="text-3xl text-gray-800 mx-5">In Progress</h2>
+          <h2 class="text-3xl">
+            {{
+              new Date(presentation.time).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            }}
+            -
+            {{
+              new Date(presentation.endtime).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            }}
+          </h2>
+        </div>
+        <div
+          v-else-if="
+            new Date(presentation.time) >= date &&
+            new Date(presentation.time).getDate() === date.getDate()
+          "
+          class="pt-6 flex mt-2"
+        >
+          <h2 class="text-3xl mx-6">
+            {{
+              new Date(presentation.time).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            }}
+            -
+            {{
+              new Date(presentation.endtime).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            }}
+          </h2>
+        </div>
+        <div
+          v-if="
+            new Date(presentation.endtime) >= date &&
+            new Date(presentation.time).getDate() === date.getDate()
+          "
+          class="text-gray-600 text-left mx-4 pb-1 border-b-2 border-slate-500"
+        >
           <h2 class="text-5xl">{{ presentation.title }}</h2>
           <!--        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>-->
         </div>
 
-<!--        CURRENT TALK ONLY -->
-<!--        <div class="pt-6 flex mt-2" v-if="new Date(presentation.time) < date && new Date(presentation.endtime) > date">-->
-<!--          <h2 class="text-3xl text-emerald-400 mx-5">In Progress</h2>-->
-<!--          <h2 class="text-3xl">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>-->
-<!--        </div>-->
-<!--        <div class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500"  v-if="new Date(presentation.time) < date && new Date(presentation.endtime) >= date && new Date(presentation.time).getDate() === date.getDate()">-->
-<!--          <h2 class="text-5xl">{{ presentation.title }}</h2>-->
-<!--          &lt;!&ndash;        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>&ndash;&gt;-->
-<!--        </div>-->
+        <!--        CURRENT TALK ONLY -->
+        <!--        <div class="pt-6 flex mt-2" v-if="new Date(presentation.time) < date && new Date(presentation.endtime) > date">-->
+        <!--          <h2 class="text-3xl text-emerald-400 mx-5">In Progress</h2>-->
+        <!--          <h2 class="text-3xl">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>-->
+        <!--        </div>-->
+        <!--        <div class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500"  v-if="new Date(presentation.time) < date && new Date(presentation.endtime) >= date && new Date(presentation.time).getDate() === date.getDate()">-->
+        <!--          <h2 class="text-5xl">{{ presentation.title }}</h2>-->
+        <!--          &lt;!&ndash;        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>&ndash;&gt;-->
+        <!--        </div>-->
       </div>
     </div>
 
@@ -46,90 +110,113 @@
       <div class="absolute inset-x-0 bottom-10 p-3">
         <div class="flex flex-wrap">
           <img
-              alt="Sponsor Logo"
-              v-for="sponsor in selectedSponsors"
-              :src="`${img_url}/images/sponsors/${sponsor.sponsor}`"
-              class="max-h-40 align-center mx-auto"
+            v-for="sponsor in selectedSponsors"
+            alt="Sponsor Logo"
+            :src="`${img_url}/images/sponsors/${sponsor.sponsor}`"
+            class="max-h-40 align-center mx-auto"
           />
         </div>
       </div>
     </div>
   </div>
-  <div class="m-10" v-else>
+  <div v-else class="m-10">
     <h1 class="text-2xl">Digital Display Setup</h1>
-    <br>
+    <br />
     <form>
-      <label for="room">Selection which location this display is located at: </label>
-      <select id="room" name="room" v-model="selectedLocation">
-        <option v-for="location in locations" :id="location.id" :value="location">{{ location }}</option>
+      <label for="room"
+        >Selection which location this display is located at:
+      </label>
+      <select id="room" v-model="selectedLocation" name="room">
+        <option
+          v-for="location in locations"
+          :id="location.id"
+          :value="location"
+        >
+          {{ location }}
+        </option>
       </select>
-      <br>
-      <br>
+      <br />
+      <br />
 
-      <h1 class="text-lg">Select the sponsors you want to appear on this display:</h1>
+      <h1 class="text-lg">
+        Select the sponsors you want to appear on this display:
+      </h1>
       <div class="flex flex-wrap">
         <div v-for="sponsor in sponsors" :id="sponsor" class="m-2">
-          <input type="checkbox" :name="sponsor.sponsor" :id="sponsor.sponsor" @click="sponsor.active = !sponsor.active" />
+          <input
+            :id="sponsor.sponsor"
+            type="checkbox"
+            :name="sponsor.sponsor"
+            @click="sponsor.active = !sponsor.active"
+          />
           <label
-              :for="sponsor.sponsor"
-              :class="{ 'border border-4 border-emerald-400 opacity-50': sponsor.active }"
-              class="flex"
-              :style="`background-image: url('${img_url}/images/sponsors/${sponsor.sponsor}'); display:inline-block;padding: 0 0 0 0px;`"
+            :for="sponsor.sponsor"
+            :class="{
+              'border border-4 border-emerald-400 opacity-50': sponsor.active,
+            }"
+            class="flex"
+            :style="`background-image: url('${img_url}/images/sponsors/${sponsor.sponsor}'); display:inline-block;padding: 0 0 0 0px;`"
           ></label>
         </div>
       </div>
 
-      <br><br>
-      <button type="submit" class="text-white font-light focus:ring-4 focus:ring-zinc-800 font-medium rounded-md text-sm px-5 py-2.5 m-2 mx-auto bg-zinc-500 hover:text-emerald-500 hover:bg-zinc-800 hover:border-emerald-500 transition duration-200 " @click="onSubmit">Save Settings</button>
+      <br /><br />
+      <button
+        type="submit"
+        class="text-white font-light focus:ring-4 focus:ring-zinc-800 font-medium rounded-md text-sm px-5 py-2.5 m-2 mx-auto bg-zinc-500 hover:text-emerald-500 hover:bg-zinc-800 hover:border-emerald-500 transition duration-200"
+        @click="onSubmit"
+      >
+        Save Settings
+      </button>
     </form>
   </div>
 </template>
 
 <script setup>
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 
 // ICONS
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCalendar } from '@fortawesome/free-regular-svg-icons';
-library.add(faCalendar);
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 
 // STORES
-import { usePresentationStore } from '@/stores/presentations.js';
+import { ref } from "vue";
+import { usePresentationStore } from "@/stores/presentations.js";
+
+library.add(faCalendar);
 
 const presentationStore = usePresentationStore();
-presentationStore.updateDB()
+presentationStore.updateDB();
 
-let locations = computed(() => presentationStore.getLocation);
-let sponsors = computed(() => presentationStore.getSponsors);
-
-
-
-import { ref } from 'vue';
+const locations = computed(() => presentationStore.getLocation);
+const sponsors = computed(() => presentationStore.getSponsors);
 const img_url = ref(import.meta.env.VITE_API_URL || "");
-const settings = ref(true)
+const settings = ref(true);
 
-let selectedLocation = ref(null)
-let selectedSponsors = ref([])
+const selectedLocation = ref(null);
+const selectedSponsors = ref([]);
 
 const date = ref(new Date());
 const month = ref(null);
 const day = ref(null);
 
-let presentations = computed(() => presentationStore.getPresentationsAt(selectedLocation))
+const presentations = computed(() =>
+  presentationStore.getPresentationsAt(selectedLocation)
+);
 
 const intervalId = ref(null);
 
 function onSubmit() {
-  if(selectedLocation.value != null){
+  if (selectedLocation.value != null) {
     sponsors.value.forEach((sponsor) => {
-      if(sponsor.active){
-        selectedSponsors.value.push(sponsor)
+      if (sponsor.active) {
+        selectedSponsors.value.push(sponsor);
       }
-    })
-    settings.value = false
-    console.log(selectedSponsors.value)
-  }else{
-    alert("Location must be selected.")
+    });
+    settings.value = false;
+    console.log(selectedSponsors.value);
+  } else {
+    alert("Location must be selected.");
   }
 }
 
@@ -145,8 +232,8 @@ const months = {
   8: "September",
   9: "October",
   10: "November",
-  11: "December"
-}
+  11: "December",
+};
 
 const days = {
   0: "Sunday",
@@ -155,43 +242,41 @@ const days = {
   3: "Wednesday",
   4: "Thursday",
   5: "Friday",
-  6: "Saturday"
-}
-
+  6: "Saturday",
+};
 
 setInterval(() => {
-  date.value = new Date()
-  day.value = days[date.value.getDay()]
-  month.value = months[date.value.getMonth()]
-}, 1000)
-
+  date.value = new Date();
+  day.value = days[date.value.getDay()];
+  month.value = months[date.value.getMonth()];
+}, 1000);
 </script>
 
 <style scoped>
-li{
+li {
   cursor: pointer;
 }
 
-input[type=checkbox] {
-  display:none;
+input[type="checkbox"] {
+  display: none;
 }
 
-input[type=checkbox] + label{
+input[type="checkbox"] + label {
   width: 200px;
   height: 200px;
-  display:inline-block;
+  display: inline-block;
   padding: 0 0 0 0;
   background-size: 100% 100%;
 }
 
-  /* Hide scrollbar for Chrome, Safari and Opera */
+/* Hide scrollbar for Chrome, Safari and Opera */
 #scrollarea::-webkit-scrollbar {
   display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 #scrollarea {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 </style>
