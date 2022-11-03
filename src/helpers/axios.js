@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { usePresentationStore } from '@/stores/presentations.js';
+import axios from "axios";
+import { usePresentationStore } from "@/stores/presentations.js";
 
 const Api = axios.create({
-	//Change back to /api once nginx reverse proxy is up
-	baseURL: import.meta.env.VITE_API_URL,
-	// withCredentials: true
+  // Change back to /api once nginx reverse proxy is up
+  baseURL: import.meta.env.VITE_API_URL,
+  // withCredentials: true
 });
 
 // Api.interceptors.request.use(
@@ -15,6 +15,5 @@ const Api = axios.create({
 // 		return config;
 // 	}
 // );
-
 
 export { Api };

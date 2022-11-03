@@ -1,23 +1,23 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
 
-
-import router from './router'
-import { createPinia } from 'pinia'
-const pinia = createPinia()
+import router from "./router";
+import { createPinia } from "pinia";
 
 /* Notifications */
-import Notifications from '@kyvg/vue3-notification';
+import Notifications from "@kyvg/vue3-notification";
 
 /* TailwindCSS */
-import './index.css';
+import "./index.css";
 
 /* Icons */
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+const pinia = createPinia();
 
 createApp(App)
-	.component('font-awesome-icon', FontAwesomeIcon)
-	.use(pinia)
-	.use(router)
-	.use(Notifications)
-	.mount('#app')
+  .component("font-awesome-icon", FontAwesomeIcon)
+  .use(pinia)
+  .use(router)
+  .use(Notifications)
+  .mount("#app");
