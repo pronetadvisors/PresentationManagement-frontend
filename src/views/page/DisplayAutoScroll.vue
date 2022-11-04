@@ -16,57 +16,27 @@
     </div>
 <!-- STEVE injected a containing DIV for the 'scrollarea', and subsections of slot-1, slot-2, slot-3 classes as scroll targets -->
     <div class="max-h-[1200px] overflow-scroll scroll-smooth scroll-auto" id="scrollarea">
-      <div class="slot-1" v-for="presentation in presentations">
+      <div v-for="presentation in presentations">
 <!--        SCHEDULE -->
-        <div class="pt-6 flex mt-2" v-if="new Date(presentation.time) < date && new Date(presentation.endtime) > date">
-          <h2 class="text-3xl text-emerald-400 mx-5">In Progress</h2>
-          <h2 class="text-3xl">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>
-        </div>
-        <div class="pt-6 flex mt-2" v-else-if="new Date(presentation.time) >= date && new Date(presentation.time).getDate() === date.getDate()">
-          <h2 class="text-3xl mx-6">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>
-        </div>
-        <div class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500"  v-if="new Date(presentation.endtime) >= date && new Date(presentation.time).getDate() === date.getDate()">
-          <h2 class="text-5xl">{{ presentation.title }}</h2>
-          <!--        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>-->
-        </div>
-
-        <div class="slot-2" v-for="presentation in presentations">
-  <!--        SCHEDULE -->
-          <div class="pt-6 flex mt-2" v-if="new Date(presentation.time) < date && new Date(presentation.endtime) > date">
-            <h2 class="text-3xl text-emerald-400 mx-5">In Progress</h2>
-            <h2 class="text-3xl">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>
-          </div>
-          <div class="pt-6 flex mt-2" v-else-if="new Date(presentation.time) >= date && new Date(presentation.time).getDate() === date.getDate()">
-            <h2 class="text-3xl mx-6">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>
-          </div>
-          <div class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500"  v-if="new Date(presentation.endtime) >= date && new Date(presentation.time).getDate() === date.getDate()">
+        <div :class="`slot-${presentation.id}`">
+<!--          <div class="pt-6 flex mt-2" v-if="new Date(presentation.time) < date && new Date(presentation.endtime) > date">-->
+<!--            <h2 class="text-3xl text-emerald-400 mx-5">In Progress</h2>-->
+<!--            <h2 class="text-3xl">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>-->
+<!--          </div>-->
+<!--          <div class="pt-6 flex mt-2" v-else-if="new Date(presentation.time) >= date && new Date(presentation.time).getDate() === date.getDate()">-->
+<!--            <h2 class="text-3xl mx-6">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>-->
+<!--          </div>-->
+<!--          <div class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500"  v-if="new Date(presentation.endtime) >= date && new Date(presentation.time).getDate() === date.getDate()">-->
+<!--            <h2 class="text-5xl">{{ presentation.title }}</h2>-->
+<!--            &lt;!&ndash;        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>&ndash;&gt;-->
+<!--          </div>-->
+          <div class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500">
+            <h2 class="text-5xl">{{ presentation.title }}</h2>
+            <h2 class="text-5xl">{{ presentation.title }}</h2>
             <h2 class="text-5xl">{{ presentation.title }}</h2>
             <!--        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>-->
           </div>
-
-          <div class="slot-3" v-for="presentation in presentations">
-    <!--        SCHEDULE -->
-            <div class="pt-6 flex mt-2" v-if="new Date(presentation.time) < date && new Date(presentation.endtime) > date">
-              <h2 class="text-3xl text-emerald-400 mx-5">In Progress</h2>
-              <h2 class="text-3xl">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>
-            </div>
-            <div class="pt-6 flex mt-2" v-else-if="new Date(presentation.time) >= date && new Date(presentation.time).getDate() === date.getDate()">
-              <h2 class="text-3xl mx-6">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>
-            </div>
-            <div class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500"  v-if="new Date(presentation.endtime) >= date && new Date(presentation.time).getDate() === date.getDate()">
-              <h2 class="text-5xl">{{ presentation.title }}</h2>
-              <!--        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>-->
-            </div>
-
-<!--        CURRENT TALK ONLY -->
-<!--        <div class="pt-6 flex mt-2" v-if="new Date(presentation.time) < date && new Date(presentation.endtime) > date">-->
-<!--          <h2 class="text-3xl text-emerald-400 mx-5">In Progress</h2>-->
-<!--          <h2 class="text-3xl">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>-->
-<!--        </div>-->
-<!--        <div class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500"  v-if="new Date(presentation.time) < date && new Date(presentation.endtime) >= date && new Date(presentation.time).getDate() === date.getDate()">-->
-<!--          <h2 class="text-5xl">{{ presentation.title }}</h2>-->
-<!--          &lt;!&ndash;        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>&ndash;&gt;-->
-<!--        </div>-->
+        </div>
       </div>
     </div>
 
@@ -195,6 +165,7 @@ setInterval(() => {
 
 /*<!-- STEVE added in this script -->*/
 const elements = document.querySelectorAll('[class^=slot-]');
+console.log(elements)
 let active = 0;
 setInterval(()=>{
   if( ++active >= elements.length) active = 0;
