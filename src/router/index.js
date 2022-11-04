@@ -22,8 +22,8 @@ const routes = [
     component: () => import("@/views/page/Displays.vue"),
   },
   {
-    path: "/scroll",
-    component: () => import("@/views/page/DisplayAutoScroll.vue"),
+    path: "/green",
+    component: () => import("@/views/page/DisplaysGreen.vue"),
   },
   {
     path: "/:catchAll(.*)",
