@@ -32,9 +32,7 @@
 <!--          </div>-->
           <div class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500">
             <h2 class="text-5xl">{{ presentation.title }}</h2>
-            <h2 class="text-5xl">{{ presentation.title }}</h2>
-            <h2 class="text-5xl">{{ presentation.title }}</h2>
-            <!--        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>-->
+            <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>
           </div>
         </div>
       </div>
@@ -102,7 +100,7 @@ let sponsors = computed(() => presentationStore.getSponsors);
 
 
 
-import { ref } from 'vue';
+import { ref, onUpdated } from 'vue';
 const img_url = ref(import.meta.env.VITE_API_URL || "");
 const settings = ref(true)
 
@@ -125,7 +123,6 @@ function onSubmit() {
       }
     })
     settings.value = false
-    console.log(selectedSponsors.value)
   }else{
     alert("Location must be selected.")
   }
@@ -164,12 +161,14 @@ setInterval(() => {
 }, 1000)
 
 /*<!-- STEVE added in this script -->*/
-const elements = document.querySelectorAll('[class^=slot-]');
-console.log(elements)
+var elements = document.querySelectorAll('[class^=slot-]');
+onUpdated(() => {
+  elements = document.querySelectorAll('[class^=slot]');
+})
 let active = 0;
 setInterval(()=>{
   if( ++active >= elements.length) active = 0;
-
+  console.log("SCROLLED")
   //poor support for options
   elements[active].scrollIntoView({
     behavior:'smooth',
