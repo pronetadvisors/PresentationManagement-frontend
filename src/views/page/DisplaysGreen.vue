@@ -5,7 +5,7 @@
       alt="Logo"
       class="max-w-full align-center mx-auto"
     />
-    <div class="grid grid-cols-5 gap-4 mb-5">
+    <div class="grid grid-cols-5 gap-4 mb-5 mt-4">
       <div class="text-white text-left col-span-2">
         <h1 class="text-6xl font-light">{{ date.toLocaleTimeString() }}</h1>
         <h2 class="text-3xl font-light text-gray-100 underline">
