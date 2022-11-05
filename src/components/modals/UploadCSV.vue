@@ -158,10 +158,10 @@ const handleCSVUpload = async () => {
         };
 
         if (presentation.description == null){
-          presentation.description = " "
+          presentation.description = "N/A"
         }
         if (presentation.speaker == null){
-          presentation.speaker = " "
+          presentation.speaker = "N/A"
         }
 
         for (let i = 10; i <= 19; i += 3)
