@@ -21,88 +21,68 @@
       id="scrollarea"
       class="max-h-[1200px] overflow-scroll scroll-smooth scroll-auto text-white"
     >
-      <div v-for="num in 15">
-        <div class="pt-6 flex mt-2">
-          <h2 class="text-3xl text-gray-200 mx-5">In Progress</h2>
-          <h2 class="text-3xl">10:30 AM - 11:30AM</h2>
-        </div>
-        <div
-          class="text-gray-100 text-left mx-4 pb-1 border-b-2 border-slate-500"
-        >
-          <h2 class="text-5xl">Some Tutorial</h2>
-          <!--        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>-->
-        </div>
-      </div>
-
       <div v-for="presentation in presentations" class="text-gray-300">
         <!--        SCHEDULE -->
-        <div
-          v-if="
-            new Date(presentation.time) < date &&
-            new Date(presentation.endtime) > date
-          "
-          class="pt-6 flex mt-2"
-        >
-          <h2 class="text-3xl text-gray-800 mx-5">In Progress</h2>
-          <h2 class="text-3xl">
-            {{
-              new Date(presentation.time).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-            }}
-            -
-            {{
-              new Date(presentation.endtime).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-            }}
-          </h2>
+        <div :class="`slot-${presentation.id}`">
+          <!--        SCHEDULE -->
+          <div
+              v-if="
+              new Date(presentation.time) < date &&
+              new Date(presentation.endtime) > date
+            "
+              class="pt-6 flex mt-2"
+          >
+            <h2 class="text-3xl text-gray-800 mx-5">In Progress</h2>
+            <h2 class="text-3xl">
+              {{
+                new Date(presentation.time).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              }}
+              -
+              {{
+                new Date(presentation.endtime).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              }}
+            </h2>
+          </div>
+          <div
+              v-else-if="
+              new Date(presentation.time) >= date &&
+              new Date(presentation.time).getDate() === date.getDate()
+            "
+              class="pt-6 flex mt-2"
+          >
+            <h2 class="text-3xl mx-6">
+              {{
+                new Date(presentation.time).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              }}
+              -
+              {{
+                new Date(presentation.endtime).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              }}
+            </h2>
+          </div>
+          <div
+              v-if="
+              new Date(presentation.endtime) >= date &&
+              new Date(presentation.time).getDate() === date.getDate()
+            "
+              class="text-gray-600 text-left mx-4 pb-1 border-b-2 border-slate-500"
+          >
+            <h2 class="text-5xl">{{ presentation.title }}</h2>
+            <!--        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>-->
+          </div>
         </div>
-        <div
-          v-else-if="
-            new Date(presentation.time) >= date &&
-            new Date(presentation.time).getDate() === date.getDate()
-          "
-          class="pt-6 flex mt-2"
-        >
-          <h2 class="text-3xl mx-6">
-            {{
-              new Date(presentation.time).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-            }}
-            -
-            {{
-              new Date(presentation.endtime).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-            }}
-          </h2>
-        </div>
-        <div
-          v-if="
-            new Date(presentation.endtime) >= date &&
-            new Date(presentation.time).getDate() === date.getDate()
-          "
-          class="text-gray-600 text-left mx-4 pb-1 border-b-2 border-slate-500"
-        >
-          <h2 class="text-5xl">{{ presentation.title }}</h2>
-          <!--        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>-->
-        </div>
-
-        <!--        CURRENT TALK ONLY -->
-        <!--        <div class="pt-6 flex mt-2" v-if="new Date(presentation.time) < date && new Date(presentation.endtime) > date">-->
-        <!--          <h2 class="text-3xl text-emerald-400 mx-5">In Progress</h2>-->
-        <!--          <h2 class="text-3xl">{{ new Date(presentation.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }} - {{ new Date(presentation.endtime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h2>-->
-        <!--        </div>-->
-        <!--        <div class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500"  v-if="new Date(presentation.time) < date && new Date(presentation.endtime) >= date && new Date(presentation.time).getDate() === date.getDate()">-->
-        <!--          <h2 class="text-5xl">{{ presentation.title }}</h2>-->
-        <!--          &lt;!&ndash;        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>&ndash;&gt;-->
-        <!--        </div>-->
       </div>
     </div>
 
@@ -173,7 +153,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import {computed, onUpdated} from "vue";
 
 // ICONS
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -250,9 +230,27 @@ setInterval(() => {
   day.value = days[date.value.getDay()];
   month.value = months[date.value.getMonth()];
 }, 1000);
+
+var elements = document.querySelectorAll('[class^=slot-]');
+onUpdated(() => {
+  elements = document.querySelectorAll('[class^=slot]');
+})
+let active = 0;
+setInterval(()=>{
+  if( ++active >= elements.length) active = 0;
+  console.log("SCROLLED")
+  //poor support for options
+  elements[active].scrollIntoView({
+    behavior:'smooth',
+    block:'start' //Where to align current item: 'start', 'end' or 'center'
+  })
+},5000)
 </script>
 
 <style scoped>
+[class^=slot-]{
+  margin-bottom:10px;
+}
 li {
   cursor: pointer;
 }
