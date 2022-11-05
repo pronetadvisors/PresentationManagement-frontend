@@ -157,6 +157,13 @@ const handleCSVUpload = async () => {
           speaker: `${item[7].trim()} ${item[8].trim()}`,
         };
 
+        if (presentation.description == null){
+          presentation.description = " "
+        }
+        if (presentation.speaker == null){
+          presentation.speaker = " "
+        }
+
         for (let i = 10; i <= 19; i += 3)
           if (item[i].trim() !== "") {
             presentation.speaker += ` & ${item[i].trim()} ${item[i].trim()}`;
