@@ -13,7 +13,7 @@
         </h2>
       </div>
       <div class="text-gray-800 text-right col-span-3">
-        <h2 class="text-8xl">{{ selectedLocation }}</h2>
+        <h2 class="text-6xl">{{ selectedLocation }}</h2>
       </div>
     </div>
 
