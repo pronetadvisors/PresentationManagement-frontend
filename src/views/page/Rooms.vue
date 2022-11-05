@@ -4,6 +4,7 @@
       <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
         <div class="flex overflow-hidden">
           <div class="flex">
+            <Logo />
             <label
               class="ml-4 block relative flex items-center text-zinc-300 focus-within:text-emerald-400"
             >
@@ -203,7 +204,7 @@ import { computed, ref } from "vue";
 import InfoPresentation from "@/components/modals/InfoPresentation.vue";
 import UploadPresentation from "@/components/modals/UploadPresentation.vue";
 import DownloadRoomFiles from "@/components/modals/DownloadRoomFiles.vue";
-
+import Logo from "@/components/Logo.vue";
 // STORES
 import { usePresentationStore } from "@/stores/presentations.js";
 

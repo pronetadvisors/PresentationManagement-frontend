@@ -4,6 +4,7 @@
       <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
         <div class="flex justify-between overflow-hidden">
           <div class="flex">
+            <Logo />
             <label
               class="ml-4 block relative flex items-center text-zinc-300 focus-within:text-emerald-400"
             >
@@ -194,6 +195,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { computed, ref } from "vue";
 import InfoPresentation from "@/components/modals/InfoPresentation.vue";
 import UploadPresentation from "@/components/modals/UploadPresentation.vue";
+import Logo from "@/components/Logo.vue";
 
 import DeletePowerpoint from "@/components/modals/DeletePowerpoint.vue";
 
