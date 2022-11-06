@@ -53,7 +53,7 @@
     </div>
     <!-- Tomorrow -->
     <div v-if="endOfDay">
-      <h1 class="text-5xl">Starting Tomorrow...</h1>
+      <h1 class="text-5xl">Starting Tomorrow:</h1>
       <div
         v-for="presentation in presentationsDisplayed"
         :key="presentation.id"
@@ -139,7 +139,7 @@ const endOfDay = computed(() => {
   let left = 0;
   for (const presentation of presentationsDisplayed.value) {
     // Checks for todays presentations
-    if (new Date(presentation.time).getDate() === date.value.getDate() + 3) {
+    if (new Date(presentation.time).getDate() === date.value.getDate()) {
       //  Checks for any presentations that haven't passed
       if (new Date(presentation.endTime) > date.value) {
         left++;
