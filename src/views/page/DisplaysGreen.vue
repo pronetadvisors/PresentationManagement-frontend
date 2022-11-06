@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!settings" class="h-screen p-14" style="background-color: #1BA347">
+  <div v-if="!settings" class="h-screen p-14">
     <img
       src="@/assets/HeaderLogo.jpg"
       alt="Logo"
@@ -32,7 +32,7 @@
             "
               class="pt-6 flex mt-2"
           >
-            <h2 class="text-3xl text-gray-800 mx-5">In Progress</h2>
+            <h2 class="text-3xl text-gray-300 mx-5">In Progress</h2>
             <h2 class="text-3xl">
               {{
                 new Date(presentation.time).toLocaleTimeString([], {
@@ -77,7 +77,7 @@
               new Date(presentation.endtime) >= date &&
               new Date(presentation.time).getDate() === date.getDate()
             "
-              class="text-gray-600 text-left mx-4 pb-1 border-b-2 border-slate-500"
+              class="text-white text-left mx-4 pb-1 border-b-2 border-slate-500"
           >
             <h2 class="text-5xl">{{ presentation.title }}</h2>
             <!--        <h2 class="text-4xl text-gray-300 font-normal">Presented by: {{ presentation.speaker }}</h2>-->
@@ -184,7 +184,6 @@ const presentations = computed(() =>
   presentationStore.getPresentationsAt(selectedLocation)
 );
 
-const intervalId = ref(null);
 
 function onSubmit() {
   if (selectedLocation.value != null) {

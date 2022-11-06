@@ -42,7 +42,7 @@
               <label
                 for="session_id"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >Session ID</label
+                >Presentation ID</label
               >
               <input
                 v-model="session_id"
