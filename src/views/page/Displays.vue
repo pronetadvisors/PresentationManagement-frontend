@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!settings" class="h-screen p-14"  style="background-color: #1BA347">
+  <div v-if="!settings" class="h-screen p-14" style="background-color: #1ba347">
     <img
       src="@/assets/HeaderLogo.jpg"
       alt="Logo"
@@ -86,13 +86,12 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-
-import DisplayContent from "@/components/DisplayContent.vue";
+import { computed, ref } from "vue";
 
 // ICONS
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
+import DisplayContent from "@/components/DisplayContent.vue";
 
 // STORES
 import { usePresentationStore } from "@/stores/presentations.js";
