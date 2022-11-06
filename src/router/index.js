@@ -22,10 +22,6 @@ const routes = [
     component: () => import("@/views/page/Displays.vue"),
   },
   {
-    path: "/green",
-    component: () => import("@/views/page/DisplaysGreen.vue"),
-  },
-  {
     path: "/:catchAll(.*)",
     component: () => import("@/views/page/404.vue"),
   },
