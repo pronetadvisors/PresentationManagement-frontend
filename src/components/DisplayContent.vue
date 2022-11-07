@@ -103,6 +103,10 @@ const offset = ref(props.offset);
 const presentations = ref(props.presentations);
 const date = ref(new Date());
 
+setInterval(() => {
+  date.value = new Date();
+}, 600 * 1000); // 10 Minutes
+
 // CHANGE THIS CONFIG PER EVENT BASED ON WHAT SHOULD BE DISPLAYED
 const presentationsDisplayed = computed(() => {
   const filteredPresentations = [];
