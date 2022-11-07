@@ -86,7 +86,7 @@
               :key="title.id"
               class="text-5xl my-5"
             >
-              - {{ title }}
+              &#x2022; {{ title }}
             </h2>
           </div>
         </div>
