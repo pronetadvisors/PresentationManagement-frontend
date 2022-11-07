@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <display-content :presentations="presentations" :offset="0" />
+    <display-content :presentations="presentations" :offset="offset" />
 
     <div>
       <div class="absolute inset-x-0 bottom-10 p-3">
@@ -53,6 +53,20 @@
           {{ location }}
         </option>
       </select>
+      <br />
+      <br />
+      <label for="offset">
+        Enter the number of offset in days: Eg. to advance one day, enter "1"
+      </label>
+      <input
+          id="offset"
+          v-model="offset"
+          type="text"
+          name="offset"
+          placeholder="1"
+          class="border border-2 border-black bg-gray-200"
+          required
+      />
       <br />
       <br />
 
@@ -112,6 +126,7 @@ const img_url = ref(import.meta.env.VITE_API_URL || "");
 const settings = ref(true);
 
 const selectedLocation = ref(null);
+const offset = ref(0);
 const selectedSponsors = ref([]);
 
 const date = ref(new Date());
@@ -121,8 +136,6 @@ const day = ref(null);
 const presentations = computed(() =>
   presentationStore.getPresentationsAt(selectedLocation)
 );
-
-const intervalId = ref(null);
 
 function onSubmit() {
   if (selectedLocation.value != null) {

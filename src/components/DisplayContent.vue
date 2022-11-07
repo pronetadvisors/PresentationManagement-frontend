@@ -11,7 +11,7 @@
     >
       <div :class="`slot-${presentation.id}`">
         <div
-          v-if="new Date(presentation.time).getDate() === date.getDate()"
+          v-if="new Date(presentation.time).getDate() === date.getDate() + parseInt(offset)"
           class="pb-2 border-b-2 border-green-700"
         >
           <div class="pt-0 flex">
@@ -61,7 +61,7 @@
       >
         <div :class="`slot-${presentation.id}`">
           <div
-            v-if="new Date(presentation.time).getDate() === date.getDate() + 1"
+            v-if="new Date(presentation.time).getDate() === date.getDate() + 1 + parseInt(offset)"
             class="pb-2 border-b-2 border-green-700"
           >
             <div class="pt-0 flex">
@@ -98,7 +98,8 @@
 <script setup>
 import { computed, defineProps, onUpdated, ref } from "vue";
 
-const props = defineProps(["presentations"]);
+const props = defineProps(["presentations", "offset"]);
+const offset = ref(props.offset);
 const presentations = ref(props.presentations);
 const date = ref(new Date());
 
@@ -132,7 +133,6 @@ const presentationsDisplayed = computed(() => {
     };
     filteredPresentations.push(presentation);
   }
-  console.log(filteredPresentations);
   return filteredPresentations;
 });
 
@@ -140,7 +140,7 @@ const endOfDay = computed(() => {
   let left = 0;
   for (const presentation of presentationsDisplayed.value) {
     // Checks for todays presentations
-    if (new Date(presentation.time).getDate() === date.value.getDate()) {
+    if (new Date(presentation.time).getDate() === date.value.getDate() + parseInt(offset.value)) {
       //  Checks for any presentations that haven't passed
       if (new Date(presentation.endTime) > date.value) {
         left++;
