@@ -120,7 +120,7 @@ const presentationsDisplayed = computed(() => {
       if (subPres.id === pres.id) {
         continue;
       }
-      if (subPres.time === pres.time) {
+      if (subPres.time === pres.time && subPres.endtime === pres.endtime) {
         group.push(subPres.title);
       }
     }
@@ -132,6 +132,7 @@ const presentationsDisplayed = computed(() => {
     };
     filteredPresentations.push(presentation);
   }
+  console.log(filteredPresentations);
   return filteredPresentations;
 });
 
