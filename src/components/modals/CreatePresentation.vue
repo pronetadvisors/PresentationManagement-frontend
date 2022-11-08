@@ -242,7 +242,7 @@ async function onSubmit() {
   );
   enddate.setHours(
     Number(endtime.value.substring(0, 2)),
-    Number(time.value.substring(3, 5)),
+    Number(endtime.value.substring(3, 5)),
     0
   );
   // console.log(startdate)
