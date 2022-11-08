@@ -115,9 +115,10 @@ const presentationsDisplayed = computed(() => {
   for (const pres of presentations.value) {
     let passBy = false;
     filteredPresentations.forEach((presentation) => {
-      presentation.title.forEach((title) => {
-        if (title === pres.title) passBy = true;
-      });
+      if(presentation.id === pres.id) passBy = true;
+      // presentation.title.forEach((title) => {
+      //   if (title === pres.title) passBy = true;
+      // });
     });
     if (passBy) {
       continue;
