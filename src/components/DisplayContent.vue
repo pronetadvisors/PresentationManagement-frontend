@@ -53,7 +53,7 @@
       </div>
     </div>
     <!-- Tomorrow -->
-    <div v-if="endOfDay">
+    <div v-if="endOfDay && tomorrowCount > 0">
       <h1 class="text-5xl">Starting Tomorrow:</h1>
       <div
         v-for="presentation in presentationsDisplayed"
@@ -157,6 +157,17 @@ const endOfDay = computed(() => {
   return left < 2;
 });
 // END AREA
+
+const tomorrowCount = computed(() => {
+  let count = 0;
+  for (const presentation of presentationsDisplayed.value) {
+    // Checks for tomorrow's presentations
+    if (new Date(presentation.time).getDate() === date.value.getDate() + 1 + parseInt(offset.value)) {
+      count ++;
+    }
+  }
+  return count;
+});
 
 let elements = document.querySelectorAll("[class^=slot-]");
 onUpdated(() => {
