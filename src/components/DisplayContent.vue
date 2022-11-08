@@ -11,9 +11,10 @@
     >
       <div :class="`slot-${presentation.id}`">
         <div
-          v-if="new Date(presentation.time).getDate() === date.getDate() + parseInt(offset) && date > new Date(presentation.endTime)"
+          v-if="new Date(presentation.time).getDate() === date.getDate() + parseInt(offset) && date <= new Date(presentation.endTime)"
           class="pb-2 border-b-2 border-green-700"
         >
+
           <div class="pt-0 flex">
             <!-- In Progress  -->
             <h2
@@ -105,7 +106,7 @@ const date = ref(new Date());
 
 setInterval(() => {
   date.value = new Date();
-}, 60 * 1000); // 10 Minutes
+}, 1000); // 10 Minutes
 
 
 // CHANGE THIS CONFIG PER EVENT BASED ON WHAT SHOULD BE DISPLAYED
