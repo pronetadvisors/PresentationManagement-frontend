@@ -42,7 +42,7 @@
               <label
                 for="session_id"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >Session ID</label
+                >Presentation ID</label
               >
               <input
                 v-model="session_id"
@@ -161,13 +161,34 @@
                 >
                 <input
                   id="time"
-                  v-model="endtime"
+                  v-model="endTime"
                   type="text"
                   name="time"
                   placeholder="HH:MM"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   required
                 />
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-x-3">
+              <div>
+                <label
+                    for="time"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Timezone</label>
+                <select
+                    id="timezone"
+                    v-model="timezone"
+                    name="timezone"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                >
+                  <option value="Z">Zulu</option>
+                  <option value="-04">GMT-04:00</option>
+                  <option value="-05">GMT-05:00</option>
+                  <option value="-06">GMT-06:00</option>
+                  <option value="-07">GMT-07:00</option>
+                  <option value="-08">GMT-08:00</option>
+                </select>
               </div>
             </div>
             <div class="text-center">
@@ -208,17 +229,22 @@ const props = defineProps(["presentation"]);
 const isOpen = ref(false);
 const session_id = ref(props.presentation.session_id);
 const date = ref("");
+const endDate = ref("");
 const time = ref(props.presentation.time);
-const endtime = ref(props.presentation.endtime);
+const endTime = ref(props.presentation.endtime);
+const timezone = ref(new Date(props.presentation.time).toString().substring(28, 31));
 
-// date.value = `${new Date(time.value).getFullYear()}-${new Date(time.value).getMonth()+1}-${new Date(time.value).getDate()}`
 date.value = new Date(time.value).toISOString().split("T")[0];
-time.value = `${new Date(time.value).getHours()}:${new Date(
-  time.value
-).getMinutes()}`;
-endtime.value = `${new Date(endtime.value).getHours()}:${new Date(
-  endtime.value
-).getMinutes()}`;
+endDate.value = new Date(endTime.value).toISOString().split("T")[0];
+
+time.value = new Date(time.value).toLocaleTimeString([], {
+  hour: "2-digit",
+  minute: "2-digit",
+}).substring(0, 5);
+endTime.value = new Date(endTime.value).toLocaleTimeString([], {
+  hour: "2-digit",
+  minute: "2-digit",
+}).substring(0, 5);
 
 const location = ref(props.presentation.location);
 const title = ref(props.presentation.title);
@@ -226,9 +252,6 @@ const description = ref(props.presentation.description);
 const speaker = ref(props.presentation.speaker);
 const presentationStore = usePresentationStore();
 
-const startdate = new Date();
-
-const enddate = new Date();
 
 function openModal() {
   isOpen.value = true;
@@ -236,38 +259,20 @@ function openModal() {
 }
 
 async function onSubmit() {
-  startdate.setFullYear(
-    Number(date.value.substring(0, 4)),
-    Number(date.value.substring(5, 7)) - 1,
-    Number(date.value.substring(8, 10))
-  );
-  startdate.setHours(
-    Number(time.value.substring(0, 2)),
-    Number(time.value.substring(3, 5)),
-    0
-  );
-
-  enddate.setFullYear(
-    Number(date.value.substring(0, 4)),
-    Number(date.value.substring(5, 7)) - 1,
-    Number(date.value.substring(8, 10))
-  );
-  enddate.setHours(
-    Number(endtime.value.substring(0, 2)),
-    Number(time.value.substring(3, 5)),
-    0
-  );
-
   const presentation = {
     session_id: session_id.value,
-    time: startdate.toISOString(),
-    endtime: enddate.toISOString(),
+    time: `${date.value.trim()}T${time.value.trim()}:00${timezone.value}`,
+    endtime: `${endDate.value.trim()}T${endTime.value.trim()}:00${timezone.value}`,
     location: location.value,
     title: title.value,
     description: description.value,
     speaker: speaker.value,
   };
-  console.log(presentation);
+
+  if(timezone.value !== "Z"){
+    presentation.time += ":00"
+    presentation.endtime += ":00"
+  }
   await presentationStore.updatePresentation(
     props.presentation.id,
     presentation

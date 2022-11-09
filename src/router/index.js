@@ -22,6 +22,10 @@ const routes = [
     component: () => import("@/views/page/Displays.vue"),
   },
   {
+    path: "/demo/",
+    component: () => import("@/views/page/DemoDisplay.vue"),
+  },
+  {
     path: "/:catchAll(.*)",
     component: () => import("@/views/page/404.vue"),
   },

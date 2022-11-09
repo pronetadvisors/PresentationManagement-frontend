@@ -157,12 +157,18 @@ const handleCSVUpload = async () => {
           speaker: `${item[7].trim()} ${item[8].trim()}`,
         };
 
+        if (presentation.description === "") {
+          presentation.description = "N/A";
+        }
+        if (presentation.speaker === " ") {
+          presentation.speaker = "N/A";
+        }
+
         for (let i = 10; i <= 19; i += 3)
           if (item[i].trim() !== "") {
             presentation.speaker += ` & ${item[i].trim()} ${item[i].trim()}`;
           }
 
-        // console.log(presentation);
         await new Promise((resolve) => setTimeout(resolve, 20));
         await presentationStore.createPresentation(presentation);
       }

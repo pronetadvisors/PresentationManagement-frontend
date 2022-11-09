@@ -4,6 +4,7 @@
       <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
         <div class="flex justify-between overflow-hidden">
           <div class="flex">
+            <logo />
             <label
               class="ml-4 block relative flex items-center text-zinc-300 focus-within:text-emerald-400"
             >
@@ -196,6 +197,7 @@ import UploadPresentation from "@/components/modals/UploadPresentation.vue";
 import UploadSponsors from "@/components/modals/UploadSponsors.vue";
 import DownloadRoomFiles from "@/components/modals/DownloadRoomFiles.vue";
 import DeletePowerpoint from "@/components/modals/DeletePowerpoint.vue";
+import Logo from "@/components/Logo.vue";
 
 // STORES
 import { usePresentationStore } from "@/stores/presentations.js";

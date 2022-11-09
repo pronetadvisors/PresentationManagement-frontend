@@ -34,6 +34,7 @@ export const usePresentationStore = defineStore("presentation", {
       });
       Api.get("/settings/sponsor/").then((response) => {
         const temp = response.data.sponsors;
+        if (temp == null) return;
         temp.forEach((sponsor) => {
           this.sponsors.push({
             sponsor,

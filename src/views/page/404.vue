@@ -8,6 +8,7 @@
       <div class="mx-auto max-w-md">
         <div class="divide-y divide-gray-300/50">
           <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
+            <Logo />
             <h1 class="font-mono text-5xl font-bold text-emerald-400">404</h1>
             <h1>Page not Found</h1>
             <p>If this issue persists, please contact support.</p>
@@ -28,8 +29,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "404",
-};
+<script setup>
+import Logo from "@/components/Logo.vue";
 </script>
