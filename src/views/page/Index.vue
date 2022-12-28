@@ -1,12 +1,8 @@
 <template>
   <div class="h-screen bg-zinc-800 flex">
     <div class="m-auto text-center">
-      <h1
-        class="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-cyan-400"
-      >
-        Welcome to <span class="underline decoration-white">PresMan</span>
-      </h1>
-      <p class="text-3xl text-white">Presentation Management done easy</p>
+      <h1 class="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-cyan-400">Welcome to <span class="underline decoration-white">APSARD</span></h1>
+      <p class="text-3xl text-white">Some subtext here...</p>
     </div>
   </div>
 </template>
