@@ -1,7 +1,7 @@
 <template>
   <div v-if="!settings" class="h-screen p-14" style="background-color: #fff">
     <img
-      src="@/assets/APSARD_Logo_lg.png"
+      src="@/assets/APSARD_logo.jpg"
       alt="Logo"
       class="max-w-full align-center mx-auto"
     />
@@ -121,6 +121,7 @@ const presentationStore = usePresentationStore();
 presentationStore.updateDB();
 
 const locations = computed(() => presentationStore.getLocation);
+const titles = computed(() => presentationStore.getTitle);
 const sponsors = computed(() => presentationStore.getSponsors);
 const img_url = ref(import.meta.env.VITE_API_URL || "");
 const settings = ref(true);

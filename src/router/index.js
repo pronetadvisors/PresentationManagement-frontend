@@ -27,7 +27,7 @@ const routes = [
   },
   {
     path: "/podium/",
-    component: () => import("@/views/page/Apsard-podium.vue"),
+    component: () => import("@/views/page/ApsardPodium.vue"),
   },
   {
     path: "/:catchAll(.*)",
