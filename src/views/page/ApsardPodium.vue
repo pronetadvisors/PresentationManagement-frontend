@@ -121,7 +121,7 @@ const presentationStore = usePresentationStore();
 presentationStore.updateDB();
 
 const locations = computed(() => presentationStore.getLocation);
-const titles = computed(() => presentationStore.getTitle);
+// const titles = computed(() => presentationStore.getTitle);
 const sponsors = computed(() => presentationStore.getSponsors);
 const img_url = ref(import.meta.env.VITE_API_URL || "");
 const settings = ref(true);

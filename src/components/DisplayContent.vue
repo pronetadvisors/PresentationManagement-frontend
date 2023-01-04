@@ -1,7 +1,6 @@
 <template>
   <div
-    id="scrollarea"
-    class="max-h-[1200px] overflow-scroll scroll-smooth scroll-auto text-white"
+    class="max-h-[1200px] text-white"
   >
     <!--    Today -->
     <div
@@ -12,7 +11,7 @@
       <div :class="`slot-${presentation.id}`">
         <div
           v-if="new Date(presentation.time).getDate() === date.getDate() + parseInt(offset) && date <= new Date(presentation.endTime)"
-          class="pb-2 border-b-2 border-green-700"
+          class="pb-2 border-b-2 text-3border-[#262262]"
         >
 
           <div class="pt-0 flex">
@@ -45,10 +44,17 @@
           <h2
             v-for="title in presentation.title"
             :key="title.id"
-            class="text-5xl my-5"
+            class="text-3xl text-[#d01c3b] my-5"
           >
             &#x2022; {{ title }}
           </h2>
+          <h4
+            v-for="speaker in presentation.speaker"
+            :key="speaker.id"
+            class="text-3xl text-[#d01c3b] my-5"
+          >
+            &#x2022; {{ speaker }}
+          </h4>
         </div>
       </div>
     </div>
@@ -63,7 +69,7 @@
         <div :class="`slot-${presentation.id}`">
           <div
             v-if="new Date(presentation.time).getDate() === date.getDate() + 1 + parseInt(offset)"
-            class="pb-2 border-b-2 border-green-700"
+            class="pb-2 border-b-2 text-border-[#262262]"
           >
             <div class="pt-0 flex">
               <h2 class="text-3xl">
@@ -85,10 +91,17 @@
             <h2
               v-for="title in presentation.title"
               :key="title.id"
-              class="text-5xl my-5"
+              class="text-3xl text-[#d01c3b] my-5"
             >
               &#x2022; {{ title }}
             </h2>
+            <h4
+              v-for="speaker in presentation.speaker"
+              :key="speaker.id"
+              class="text-3xl text-[#d01c3b] my-5"
+            >
+              &#x2022; {{ speaker }}
+            </h4>
           </div>
         </div>
       </div>
@@ -173,16 +186,6 @@ let elements = document.querySelectorAll("[class^=slot-]");
 onUpdated(() => {
   elements = document.querySelectorAll("[class^=slot]");
 });
-let active = 0;
-setInterval(() => {
-  if (elements.length === 0) return;
-  if (++active >= elements.length) active = 0;
-  // poor support for options
-  elements[active].scrollIntoView({
-    behavior: "smooth",
-    block: "start", // Where to align current item: 'start', 'end' or 'center'
-  });
-}, 5000);
 </script>
 
 <style scoped>
