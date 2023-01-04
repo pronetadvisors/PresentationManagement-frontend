@@ -1,12 +1,11 @@
 <template>
-  <div
-    class="max-h-[1200px] text-white"
-  >
+  <!-- scrolling DIV removed <div id="scrollarea" class="max-h-[1200px] overflow-scroll scroll-smooth scroll-auto text-[#d01c3b]"> -->
+  <div class="max-h-[1200px] text-[#d01c3b]">
     <!--    Today -->
     <div
       v-for="presentation in presentationsDisplayed"
       :key="presentation.id"
-      class="text-white"
+      class="text-[#d01c3b]"
     >
       <div :class="`slot-${presentation.id}`">
         <div
@@ -21,7 +20,7 @@
                 new Date(presentation.time) < date &&
                 new Date(presentation.endTime) > date
               "
-              class="text-3xl text-white mx-5"
+              class="text-3xl text-[#d01c3b] mx-5"
             >
               In Progress
             </h2>
@@ -41,20 +40,26 @@
               }}
             </h2>
           </div>
-          <h2
+        <!--  <h3
             v-for="title in presentation.title"
             :key="title.id"
             class="text-3xl text-[#d01c3b] my-5"
           >
             &#x2022; {{ title }}
-          </h2>
-          <h4
+          </h3> -->
+          <h1
             v-for="speaker in presentation.speaker"
             :key="speaker.id"
-            class="text-3xl text-[#d01c3b] my-5"
-          >
-            &#x2022; {{ speaker }}
-          </h4>
+            class="text-3xl text-[#d01c3b] my-2"
+            >
+            &nbsp;
+            <a
+              class="text-lg"
+              :href="`${api_url}/images/${presentation.powerpoint}`"
+            >
+              {{ speaker }}
+            </a>
+          </h1>
         </div>
       </div>
     </div>
@@ -64,7 +69,7 @@
       <div
         v-for="presentation in presentationsDisplayed"
         :key="presentation.id"
-        class="text-white"
+        class="text-[#d01c3b]"
       >
         <div :class="`slot-${presentation.id}`">
           <div
@@ -99,7 +104,7 @@
               v-for="speaker in presentation.speaker"
               :key="speaker.id"
               class="text-3xl text-[#d01c3b] my-5"
-            >
+              >
               &#x2022; {{ speaker }}
             </h4>
           </div>
@@ -116,6 +121,7 @@ const props = defineProps(["presentations", "offset"]);
 const offset = ref(props.offset);
 const presentations = ref(props.presentations);
 const date = ref(new Date());
+const api_url = ref(import.meta.env.VITE_API_URL || "");
 
 setInterval(() => {
   date.value = new Date();
@@ -129,9 +135,9 @@ const presentationsDisplayed = computed(() => {
     let passBy = false;
     filteredPresentations.forEach((presentation) => {
       if(presentation.id === pres.id) passBy = true;
-      // presentation.title.forEach((title) => {
-      //   if (title === pres.title) passBy = true;
-      // });
+       presentation.title.forEach((title) => {
+         if (title === pres.title) passBy = true;
+       });
     });
     if (passBy) {
       continue;
@@ -145,9 +151,19 @@ const presentationsDisplayed = computed(() => {
         group.push(subPres.title);
       }
     }
+    const talk = [pres.speaker];
+    for (const subPres of presentations.value) {
+      if (subPres.id === pres.id) {
+        continue;
+      }
+      if (subPres.time === pres.time && subPres.endtime === pres.endtime) {
+        talk.push(subPres.speaker);
+      }
+    }
     const presentation = {
       id: pres.id,
       title: group,
+      speaker: talk,
       time: pres.time,
       endTime: pres.endtime,
     };
@@ -186,6 +202,16 @@ let elements = document.querySelectorAll("[class^=slot-]");
 onUpdated(() => {
   elements = document.querySelectorAll("[class^=slot]");
 });
+//let active = 0;
+//setInterval(() => {
+//  if (elements.length === 0) return;
+//  if (++active >= elements.length) active = 0;
+  // poor support for options
+//  elements[active].scrollIntoView({
+//    behavior: "smooth",
+//    block: "start", // Where to align current item: 'start', 'end' or 'center'
+//  });
+//}, 0);
 </script>
 
 <style scoped>
