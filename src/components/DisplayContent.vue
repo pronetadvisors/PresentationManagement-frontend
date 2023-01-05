@@ -40,13 +40,11 @@
               }}
             </h2>
           </div>
-        <!--  <h3
-            v-for="title in presentation.title"
-            :key="title.id"
+        <h3
             class="text-3xl text-[#d01c3b] my-5"
           >
-            &#x2022; {{ title }}
-          </h3> -->
+            &#x2022; {{ presen[timeRange][0].title }}
+          </h3>
           <h1
             v-for="presentation in presen[timeRange]"
             :key="presentation.id"
