@@ -3,13 +3,13 @@
   <div class="max-h-[1200px] text-[#d01c3b]">
     <!--    Today -->
     <div
-      v-for="presentation in presentationsDisplayed"
-      :key="presentation.id"
+      v-for="timeRange in Object.keys(presen)"
+      :key="timeRange"
       class="text-[#d01c3b]"
     >
-      <div :class="`slot-${presentation.id}`">
+      <div :class="`slot-${timeRange}`">
         <div
-          v-if="new Date(presentation.time).getDate() === date.getDate() + parseInt(offset) && date <= new Date(presentation.endTime)"
+          v-if="new Date(presen[timeRange][0].time).getDate() === date.getDate() + parseInt(offset) && date <= new Date(presen[timeRange][0].endtime)"
           class="pb-2 border-b-2 text-3border-[#262262]"
         >
 
@@ -17,8 +17,8 @@
             <!-- In Progress  -->
             <h2
               v-if="
-                new Date(presentation.time) < date &&
-                new Date(presentation.endTime) > date
+                new Date(presen[timeRange][0].time) < date &&
+                new Date(presen[timeRange][0].endtime) > date
               "
               class="text-3xl text-[#d01c3b] mx-5"
             >
@@ -26,14 +26,14 @@
             </h2>
             <h2 class="text-3xl">
               {{
-                new Date(presentation.time).toLocaleTimeString([], {
+                new Date(presen[timeRange][0].time).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
                 })
               }}
               -
               {{
-                new Date(presentation.endTime).toLocaleTimeString([], {
+                new Date(presen[timeRange][0].endtime).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
                 })
@@ -48,17 +48,19 @@
             &#x2022; {{ title }}
           </h3> -->
           <h1
-            v-for="speaker in presentation.speaker"
-            :key="speaker.id"
-            class="text-3xl text-[#d01c3b] my-2"
+            v-for="presentation in presen[timeRange]"
+            :key="presentation.id"
+            class="text-3xl my-2"
             >
             &nbsp;
             <a
-              class="text-lg"
-              :href="`${api_url}/images/${presentation.powerpoint}`"
+                v-if="presentation.powerpoint"
+                class="text-lg text-blue-500"
+                :href="`${api_url}/images/${presentation.powerpoint}`"
             >
-              {{ speaker }}
+              {{ presentation.speaker }}
             </a>
+            <span v-else class="text-lg text-black">{{ presentation.speaker }}</span>
           </h1>
         </div>
       </div>
@@ -127,6 +129,7 @@ setInterval(() => {
   date.value = new Date();
 }, 1000); // 10 Minutes
 
+console.log(presentations.value)
 
 // CHANGE THIS CONFIG PER EVENT BASED ON WHAT SHOULD BE DISPLAYED
 const presentationsDisplayed = computed(() => {
@@ -166,11 +169,26 @@ const presentationsDisplayed = computed(() => {
       speaker: talk,
       time: pres.time,
       endTime: pres.endtime,
+      presentation: pres.presentation
     };
     filteredPresentations.push(presentation);
   }
   return filteredPresentations;
 });
+
+const presen = computed(() => {
+  const pres = {};
+  console.log(presentations.value)
+  for (const presentation of presentations.value) {
+    if (pres[presentation.time + " " + presentation.endtime] === undefined) {
+      pres[presentation.time + " " + presentation.endtime] = [presentation];
+    } else {
+      pres[presentation.time + " " + presentation.endtime].push(presentation);
+    }
+  }
+  console.log(pres);
+  return pres
+})
 
 const endOfDay = computed(() => {
   let left = 0;
