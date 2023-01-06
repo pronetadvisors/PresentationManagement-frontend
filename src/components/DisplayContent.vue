@@ -1,6 +1,6 @@
 <template>
   <!-- scrolling DIV removed <div id="scrollarea" class="max-h-[1200px] overflow-scroll scroll-smooth scroll-auto text-[#d01c3b]"> -->
-  <div class="max-h-[1200px] text-[#d01c3b]">
+  <div class="flex-1 overflow-y-auto pt-[180px] max-h-[1200px] text-[#d01c3b]"></div><div class="relative flex-1 overflow-y-auto">
     <!--    Today -->
     <div
       v-for="timeRange in Object.keys(presen)"

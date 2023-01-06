@@ -1,11 +1,12 @@
 <template>
-  <div v-if="!settings" class="h-screen p-14" style="background-color: #fff">
-    <img
+<div>
+  <div v-if="!settings" class="h-screen p-10" style="background-color: #fff">
+    <div id=logo class="w-1/3 float-left"><img
       src="@/assets/APSARD_logo.jpg"
       alt="Logo"
       class="max-w-full align-center mx-auto"
-    />
-    <div class="grid grid-cols-5 gap-4 mb-5 mt-5 pb-5 border-b-2 border-[#262262]">
+    /></div>
+    <div class="w-2/3 float-right grid grid-cols-5 gap-4 mb-5 mt-5 pb-5 border-b-2 border-[#262262]">
       <div class="text-[#d01c3b] text-left col-span-2">
         <h1 class="text-6xl font-light">
           {{ date.toLocaleTimeString([], {
@@ -102,6 +103,7 @@
       </button>
     </form>
   </div>
+    </div>
 </template>
 
 <script setup>
