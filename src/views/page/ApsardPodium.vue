@@ -1,13 +1,8 @@
 <template>
 <div>
-  <div v-if="!settings" class="h-screen p-10" style="background-color: #fff">
-    <div id=logo class="w-1/3 float-left"><img
-      src="@/assets/APSARD_logo.jpg"
-      alt="Logo"
-      class="max-w-full align-center mx-auto"
-    /></div>
-    <div class="w-2/3 float-right grid grid-cols-5 gap-4 mb-5 mt-5 pb-5 border-b-2 border-[#262262]">
-      <div class="text-[#d01c3b] text-left col-span-2">
+  <div v-if="!settings" class="flex-1 p-5 w-screen" style="background-color: #fff">
+    <div class="sticky top-0 border-b-2 z-50 bg-white float-left grid grid-cols-3 gap-3 mb-4 mt-2">
+      <div class="text-[#d01c3b] text-left col-span-1 m-6 border-b-2 border-[#262262]">
         <h1 class="text-6xl font-light">
           {{ date.toLocaleTimeString([], {
               hour: "2-digit",
@@ -18,12 +13,17 @@
           {{ day }}, {{ month }} {{ date.getDate() }}
         </h2>
       </div>
-      <div class="text-[#d01c3b] text-right col-span-3">
-        <h2 class="text-6xl">{{ selectedLocation }}</h2>
+      <div id="logo" class="text-center col-span-1"><img
+        src="@/assets/APSARD_logo.jpg"
+        alt="Logo"
+        class="top-0 relative max-w-full align-center"
+      /></div>
+      <div class="text-[#d01c3b] text-right col-span-1 m-6 mt-3 border-b-2 border-[#262262]">
+        <h2 class="text-6xl pt-6">{{ selectedLocation }}</h2>
       </div>
     </div>
 
-    <display-content :presentations="presentations" :offset="offset" />
+    <div id="main"><display-content :presentations="presentations" :offset="offset" /></div>
 
     <div>
       <div class="absolute inset-x-0 bottom-10 p-3">
@@ -96,7 +96,7 @@
       <br /><br />
       <button
         type="submit"
-        class="text-[#d01c3b] font-light focus:ring-4 focus:ring-zinc-800 font-medium rounded-md text-sm px-5 py-2.5 m-2 mx-auto bg-zinc-500 hover:text-emerald-500 hover:bg-zinc-800 hover:border-emerald-500 transition duration-200"
+        class="text-white font-light focus:ring-4 focus:ring-zinc-800 font-medium rounded-md text-sm px-5 py-2.5 m-2 mx-auto bg-zinc-500 hover:text-emerald-500 hover:bg-zinc-800 hover:border-emerald-500 transition duration-200"
         @click="onSubmit"
       >
         Save Settings
