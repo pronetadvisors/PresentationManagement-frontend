@@ -62,7 +62,7 @@ import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { ref } from "vue";
 
 // STORES
-import { usePresentationStore } from "@/stores/presentations.js";
+import { usePresentationStore } from "@/stores/presentations";
 
 library.add(faTrashCan);
 // PROPS

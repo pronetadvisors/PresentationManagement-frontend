@@ -144,36 +144,37 @@
               </div>
               <div class="my-auto mx-auto text-center">
                 <p>
-                  You're currently in: {{ easy(new Date().getTimezoneOffset()/-60) }}
+                  You're currently in:
+                  {{ easy(new Date().getTimezoneOffset() / -60) }}
                 </p>
               </div>
             </div>
             <div class="grid grid-cols-2 gap-x-3">
               <div>
                 <label
-                        for="time"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  for="time"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   Start Time
                 </label>
                 <vue-date-picker
-                        v-model="time"
-                        :is-24="false"
-                        :timezone="timezone"
+                  v-model="time"
+                  :is-24="false"
+                  :timezone="timezone"
                 />
-            </div>
-            <div>
-              <label
-                for="time"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                End Time
-              </label>
-              <vue-date-picker
-                v-model="endTime"
-                :is-24="false"
-                :timezone="timezone"
-              />
+              </div>
+              <div>
+                <label
+                  for="time"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  End Time
+                </label>
+                <vue-date-picker
+                  v-model="endTime"
+                  :is-24="false"
+                  :timezone="timezone"
+                />
               </div>
             </div>
             <div class="text-center">
@@ -211,41 +212,41 @@ import { usePresentationStore } from "@/stores/presentations.js";
 library.add(faPencil);
 
 const timezones = [
-	{
-		easy: "Hawaii Standard Time",
-		name: "America/Adak",
-		offset: -10,
-	},
-	{
-		easy: "Alaska Daylight Time",
-		name: "Pacific/Gambier",
-		offset: -8,
-	},
-	{
-		easy: "Pacific Daylight Time",
-		name: "America/Los_Angeles",
-		offset: -7,
-	},
-	{
-		easy: "Mountain Daylight Time",
-		name: "America/Denver",
-		offset: -6,
-	},
-	{
-		easy: "Central Daylight Time",
-		name: "America/Chicago",
-		offset: -5,
-	},
-	{
-		easy: "Eastern Daylight Time",
-		name: "America/New_York",
-		offset: -4,
-	},
-	{
-		easy: "UTC",
-		name: "UTC",
-		offset: 0,
-	},
+  {
+    easy: "Hawaii Standard Time",
+    name: "America/Adak",
+    offset: -10,
+  },
+  {
+    easy: "Alaska Daylight Time",
+    name: "Pacific/Gambier",
+    offset: -8,
+  },
+  {
+    easy: "Pacific Daylight Time",
+    name: "America/Los_Angeles",
+    offset: -7,
+  },
+  {
+    easy: "Mountain Daylight Time",
+    name: "America/Denver",
+    offset: -6,
+  },
+  {
+    easy: "Central Daylight Time",
+    name: "America/Chicago",
+    offset: -5,
+  },
+  {
+    easy: "Eastern Daylight Time",
+    name: "America/New_York",
+    offset: -4,
+  },
+  {
+    easy: "UTC",
+    name: "UTC",
+    offset: 0,
+  },
 ];
 
 // PROPS
@@ -260,7 +261,7 @@ const description = ref(props.presentation.description);
 const speaker = ref(props.presentation.speaker);
 const presentationStore = usePresentationStore();
 
-const timezone = ref(name(new Date().getTimezoneOffset()/-60));
+const timezone = ref(name(new Date().getTimezoneOffset() / -60));
 
 function openModal() {
   isOpen.value = true;

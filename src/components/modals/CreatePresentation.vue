@@ -120,62 +120,63 @@
                 />
               </div>
             </div>
-              <div class="grid grid-cols-2 gap-x-3">
-                  <div>
-                      <label
-                              for="time"
-                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                      >Timezone</label
-                      >
-                      <select
-                              id="timezone"
-                              v-model="timezone"
-                              name="timezone"
-                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                      >
-                          <option
-                                  v-for="zone in timezones"
-                                  :key="zone.offset"
-                                  :value="zone.name"
-                          >
-                              {{ zone.easy }}
-                          </option>
-                      </select>
-                  </div>
-                  <div class="my-auto mx-auto text-center">
-                      <p>
-                          You're currently in: {{ easy(new Date().getTimezoneOffset()/-60) }}
-                      </p>
-                  </div>
+            <div class="grid grid-cols-2 gap-x-3">
+              <div>
+                <label
+                  for="time"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >Timezone</label
+                >
+                <select
+                  id="timezone"
+                  v-model="timezone"
+                  name="timezone"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                >
+                  <option
+                    v-for="zone in timezones"
+                    :key="zone.offset"
+                    :value="zone.name"
+                  >
+                    {{ zone.easy }}
+                  </option>
+                </select>
               </div>
-              <div class="grid grid-cols-2 gap-x-3">
-                  <div>
-                      <label
-                              for="time"
-                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                      >
-                          Start Time
-                      </label>
-                      <vue-date-picker
-                              v-model="time"
-                              :is-24="false"
-                              :timezone="timezone"
-                      />
-                  </div>
-                  <div>
-                      <label
-                              for="time"
-                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                      >
-                          End Time
-                      </label>
-                      <vue-date-picker
-                              v-model="endTime"
-                              :is-24="false"
-                              :timezone="timezone"
-                      />
-                  </div>
+              <div class="my-auto mx-auto text-center">
+                <p>
+                  You're currently in:
+                  {{ easy(new Date().getTimezoneOffset() / -60) }}
+                </p>
               </div>
+            </div>
+            <div class="grid grid-cols-2 gap-x-3">
+              <div>
+                <label
+                  for="time"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Start Time
+                </label>
+                <vue-date-picker
+                  v-model="time"
+                  :is-24="false"
+                  :timezone="timezone"
+                />
+              </div>
+              <div>
+                <label
+                  for="time"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  End Time
+                </label>
+                <vue-date-picker
+                  v-model="endTime"
+                  :is-24="false"
+                  :timezone="timezone"
+                />
+              </div>
+            </div>
             <div class="text-center">
               <button
                 type="button"
@@ -210,53 +211,52 @@ import { ref } from "vue";
 import { usePresentationStore } from "@/stores/presentations.js";
 
 const timezones = [
-	{
-		easy: "Hawaii Standard Time",
-		name: "America/Adak",
-		offset: -10,
-	},
-	{
-		easy: "Alaska Daylight Time",
-		name: "Pacific/Gambier",
-		offset: -8,
-	},
-	{
-		easy: "Pacific Daylight Time",
-		name: "America/Los_Angeles",
-		offset: -7,
-	},
-	{
-		easy: "Mountain Daylight Time",
-		name: "America/Denver",
-		offset: -6,
-	},
-	{
-		easy: "Central Daylight Time",
-		name: "America/Chicago",
-		offset: -5,
-	},
-	{
-		easy: "Eastern Daylight Time",
-		name: "America/New_York",
-		offset: -4,
-	},
-	{
-		easy: "UTC",
-		name: "UTC",
-		offset: 0,
-	},
+  {
+    easy: "Hawaii Standard Time",
+    name: "America/Adak",
+    offset: -10,
+  },
+  {
+    easy: "Alaska Daylight Time",
+    name: "Pacific/Gambier",
+    offset: -8,
+  },
+  {
+    easy: "Pacific Daylight Time",
+    name: "America/Los_Angeles",
+    offset: -7,
+  },
+  {
+    easy: "Mountain Daylight Time",
+    name: "America/Denver",
+    offset: -6,
+  },
+  {
+    easy: "Central Daylight Time",
+    name: "America/Chicago",
+    offset: -5,
+  },
+  {
+    easy: "Eastern Daylight Time",
+    name: "America/New_York",
+    offset: -4,
+  },
+  {
+    easy: "UTC",
+    name: "UTC",
+    offset: 0,
+  },
 ];
 
 function name(timezone_offset) {
-	const { name } = timezones.find((zone) => zone.offset === timezone_offset);
-	return name;
+  const { name } = timezones.find((zone) => zone.offset === timezone_offset);
+  return name;
 }
 
 function easy(timezone_offset) {
-	const { easy } = timezones.find((zone) => zone.offset === timezone_offset);
-	return easy;
+  const { easy } = timezones.find((zone) => zone.offset === timezone_offset);
+  return easy;
 }
-
 
 library.add(faPencil);
 const isOpen = ref(false);
@@ -267,7 +267,7 @@ const location = ref("");
 const title = ref("");
 const description = ref("");
 const speaker = ref("");
-const timezone = ref(name(new Date().getTimezoneOffset()/-60));
+const timezone = ref(name(new Date().getTimezoneOffset() / -60));
 
 const presentationStore = usePresentationStore();
 

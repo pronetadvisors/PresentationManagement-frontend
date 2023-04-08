@@ -218,19 +218,32 @@ const search = ref("");
 const presentations = computed(() => presentationStore.getPresentations);
 const uploading = computed(() => presentationStore.getUploading);
 
+function formatDate(date) {
+  const pad = (n) => (n < 10 ? "0" + n : n);
+
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const year = date.getFullYear();
+
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+
+  return `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
+}
+
 function downloadCSV() {
   let csv =
-    "Presentation ID, Start Date, End Date, Location, Title, Speaker, Presentation\n";
+    "Presentation ID, Start Date, End Date, Location, Title, Description, Speaker, Presentation\n";
   presentations.value.forEach((pres) => {
     csv += `${pres.session_id},`;
-    csv +=
-      `${new Date(pres.time).to}` + ",";
-    csv +=
-      `${new Date(pres.endtime)}` + ",";
+    csv += `${formatDate(new Date(pres.time))}` + ",";
+    csv += `${formatDate(new Date(pres.endtime))}` + ",";
     csv += `"${pres.location}"` + ",";
     csv += `"${pres.title.replace(`"`, `""`)}"` + ",";
+    csv += `"${pres.description.replace(`"`, `""`)}"` + ",";
     csv += `"${pres.speaker.replace(`"`, `""`)}"` + ",";
-    csv += `${pres.powerpoint ?? "N/A"},`;
+    csv += `${pres.powerpoint ?? "N/A"}`;
 
     csv += "\n";
   });

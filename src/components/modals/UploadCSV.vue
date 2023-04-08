@@ -149,12 +149,12 @@ const handleCSVUpload = async () => {
       for (const item of results.data) {
         const presentation = {
           session_id: item[0].trim(),
-          time: `${item[4].trim()}T${item[5].trim()}${timezone.value}:00`,
-          endtime: `${item[4].trim()}T${item[6].trim()}${timezone.value}:00`,
+          time: `${new Date(item[1].trim() + timezone.value).toJSON()}`,
+          endtime: `${new Date(item[2].trim() + timezone.value).toJSON()}`,
           location: item[3].trim(),
-          title: item[1].trim(),
-          description: item[2].trim(),
-          speaker: `${item[7].trim()} ${item[8].trim()}`,
+          title: item[4].trim(),
+          description: item[5].trim(),
+          speaker: `${item[6].trim()}`,
         };
 
         if (presentation.description === "") {
@@ -163,11 +163,6 @@ const handleCSVUpload = async () => {
         if (presentation.speaker === " ") {
           presentation.speaker = "N/A";
         }
-
-        for (let i = 10; i <= 19; i += 3)
-          if (item[i].trim() !== "") {
-            presentation.speaker += ` & ${item[i].trim()} ${item[i].trim()}`;
-          }
 
         await new Promise((resolve) => setTimeout(resolve, 20));
         await presentationStore.createPresentation(presentation);
