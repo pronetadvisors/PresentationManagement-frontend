@@ -38,10 +38,10 @@
     </div>
   </div>
   <div class="flex">
-    <div class="w-screen sm:-mx-6 lg:-mx-8">
-      <div class="py-2 inline-block w-screen sm:px-6 lg:px-8">
-        <div class="w-screen">
-          <table class="table-fixed">
+    <div class="w-full">
+      <div class="py-2 inline-block w-full">
+        <div class="w-full">
+          <table class="w-full table-fixed">
             <thead class="border-b">
               <tr>
                 <th
@@ -105,7 +105,7 @@
                 class="border-b"
               >
                 <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900"
+                  class="pl-6 whitespace-nowrap text-sm font-bold text-gray-900"
                 >
                   {{ presentation.session_id }}
                 </td>
@@ -220,23 +220,13 @@ const uploading = computed(() => presentationStore.getUploading);
 
 function downloadCSV() {
   let csv =
-    "Presentation ID, Date, Start Time, End Time, Location, Title, Speaker, Presentation\n";
+    "Presentation ID, Start Date, End Date, Location, Title, Speaker, Presentation\n";
   presentations.value.forEach((pres) => {
     csv += `${pres.session_id},`;
     csv +=
-      `${new Date(pres.time).getMonth() + 1}/${new Date(
-        pres.time
-      ).getDate()}/${new Date(pres.time).getFullYear()}` + ",";
+      `${new Date(pres.time).to}` + ",";
     csv +=
-      `${new Date(pres.time).toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      })}` + ",";
-    csv +=
-      `${new Date(pres.endtime).toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      })}` + ",";
+      `${new Date(pres.endtime)}` + ",";
     csv += `"${pres.location}"` + ",";
     csv += `"${pres.title.replace(`"`, `""`)}"` + ",";
     csv += `"${pres.speaker.replace(`"`, `""`)}"` + ",";

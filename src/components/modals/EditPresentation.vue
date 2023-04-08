@@ -103,7 +103,7 @@
               />
             </div>
             <div class="grid grid-cols-3 gap-x-3">
-              <div class="col-span-2">
+              <div class="col-span-3">
                 <label
                   for="location"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -119,76 +119,61 @@
                   required
                 />
               </div>
-              <div>
-                <label
-                  for="date"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >Date(YYYY-MM-DD)</label
-                >
-                <input
-                  id="date"
-                  v-model="date"
-                  type="text"
-                  name="date"
-                  placeholder="YYYY-MM-DD"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
-                />
-              </div>
             </div>
             <div class="grid grid-cols-2 gap-x-3">
               <div>
                 <label
                   for="time"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >Start Time(HH:MM)</label
+                  >Timezone</label
                 >
-                <input
-                  id="time"
-                  v-model="time"
-                  type="text"
-                  name="time"
-                  placeholder="HH:MM"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  for="time"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >End Time(HH:MM)</label
-                >
-                <input
-                  id="time"
-                  v-model="endTime"
-                  type="text"
-                  name="time"
-                  placeholder="HH:MM"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
-                />
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-x-3">
-              <div>
-                <label
-                    for="time"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >Timezone</label>
                 <select
-                    id="timezone"
-                    v-model="timezone"
-                    name="timezone"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  id="timezone"
+                  v-model="timezone"
+                  name="timezone"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 >
-                  <option value="Z">Zulu</option>
-                  <option value="-04">GMT-04:00</option>
-                  <option value="-05">GMT-05:00</option>
-                  <option value="-06">GMT-06:00</option>
-                  <option value="-07">GMT-07:00</option>
-                  <option value="-08">GMT-08:00</option>
+                  <option
+                    v-for="zone in timezones"
+                    :key="zone.offset"
+                    :value="zone.name"
+                  >
+                    {{ zone.easy }}
+                  </option>
                 </select>
+              </div>
+              <div class="my-auto mx-auto text-center">
+                <p>
+                  You're currently in: {{ easy(new Date().getTimezoneOffset()/-60) }}
+                </p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-x-3">
+              <div>
+                <label
+                        for="time"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Start Time
+                </label>
+                <vue-date-picker
+                        v-model="time"
+                        :is-24="false"
+                        :timezone="timezone"
+                />
+            </div>
+            <div>
+              <label
+                for="time"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                End Time
+              </label>
+              <vue-date-picker
+                v-model="endTime"
+                :is-24="false"
+                :timezone="timezone"
+              />
               </div>
             </div>
             <div class="text-center">
@@ -224,55 +209,86 @@ import { ref } from "vue";
 import { usePresentationStore } from "@/stores/presentations.js";
 
 library.add(faPencil);
+
+const timezones = [
+	{
+		easy: "Hawaii Standard Time",
+		name: "America/Adak",
+		offset: -10,
+	},
+	{
+		easy: "Alaska Daylight Time",
+		name: "Pacific/Gambier",
+		offset: -8,
+	},
+	{
+		easy: "Pacific Daylight Time",
+		name: "America/Los_Angeles",
+		offset: -7,
+	},
+	{
+		easy: "Mountain Daylight Time",
+		name: "America/Denver",
+		offset: -6,
+	},
+	{
+		easy: "Central Daylight Time",
+		name: "America/Chicago",
+		offset: -5,
+	},
+	{
+		easy: "Eastern Daylight Time",
+		name: "America/New_York",
+		offset: -4,
+	},
+	{
+		easy: "UTC",
+		name: "UTC",
+		offset: 0,
+	},
+];
+
 // PROPS
 const props = defineProps(["presentation"]);
 const isOpen = ref(false);
 const session_id = ref(props.presentation.session_id);
-const date = ref("");
-const endDate = ref("");
-const time = ref(props.presentation.time);
-const endTime = ref(props.presentation.endtime);
-const timezone = ref(new Date(props.presentation.time).toString().substring(28, 31));
-
-date.value = new Date(time.value).toISOString().split("T")[0];
-endDate.value = new Date(endTime.value).toISOString().split("T")[0];
-
-time.value = new Date(time.value).toLocaleTimeString([], {
-  hour: "2-digit",
-  minute: "2-digit",
-}).substring(0, 5);
-endTime.value = new Date(endTime.value).toLocaleTimeString([], {
-  hour: "2-digit",
-  minute: "2-digit",
-}).substring(0, 5);
-
+const time = ref(new Date(props.presentation.time));
+const endTime = ref(new Date(props.presentation.endtime));
 const location = ref(props.presentation.location);
 const title = ref(props.presentation.title);
 const description = ref(props.presentation.description);
 const speaker = ref(props.presentation.speaker);
 const presentationStore = usePresentationStore();
 
+const timezone = ref(name(new Date().getTimezoneOffset()/-60));
 
 function openModal() {
   isOpen.value = true;
   window.scrollTo(0, 0);
 }
 
+function name(timezone_offset) {
+  const { name } = timezones.find((zone) => zone.offset === timezone_offset);
+  return name;
+}
+
+function easy(timezone_offset) {
+  const { easy } = timezones.find((zone) => zone.offset === timezone_offset);
+  return easy;
+}
+
 async function onSubmit() {
   const presentation = {
     session_id: session_id.value,
-    time: `${date.value.trim()}T${time.value.trim()}:00${timezone.value}`,
-    endtime: `${endDate.value.trim()}T${endTime.value.trim()}:00${timezone.value}`,
+    time: `${new Date(time.value).toJSON()}`,
+    endtime: `${new Date(endTime.value).toJSON()}`,
     location: location.value,
     title: title.value,
     description: description.value,
     speaker: speaker.value,
   };
 
-  if(timezone.value !== "Z"){
-    presentation.time += ":00"
-    presentation.endtime += ":00"
-  }
+  console.log(presentation);
   await presentationStore.updatePresentation(
     props.presentation.id,
     presentation

@@ -11,10 +11,13 @@
     >
       <div :class="`slot-${presentation.id}`">
         <div
-          v-if="new Date(presentation.time).getDate() === date.getDate() + parseInt(offset) && date <= new Date(presentation.endTime)"
+          v-if="
+            new Date(presentation.time).getDate() ===
+              date.getDate() + parseInt(offset) &&
+            date <= new Date(presentation.endTime)
+          "
           class="pb-2 border-b-2 border-green-700"
         >
-
           <div class="pt-0 flex">
             <!-- In Progress  -->
             <h2
@@ -62,7 +65,10 @@
       >
         <div :class="`slot-${presentation.id}`">
           <div
-            v-if="new Date(presentation.time).getDate() === date.getDate() + 1 + parseInt(offset)"
+            v-if="
+              new Date(presentation.time).getDate() ===
+              date.getDate() + 1 + parseInt(offset)
+            "
             class="pb-2 border-b-2 border-green-700"
           >
             <div class="pt-0 flex">
@@ -97,7 +103,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, onUpdated, ref } from "vue";
+import { computed, onUpdated, ref } from "vue";
 
 const props = defineProps(["presentations", "offset"]);
 const offset = ref(props.offset);
@@ -108,14 +114,13 @@ setInterval(() => {
   date.value = new Date();
 }, 1000); // 10 Minutes
 
-
 // CHANGE THIS CONFIG PER EVENT BASED ON WHAT SHOULD BE DISPLAYED
 const presentationsDisplayed = computed(() => {
   const filteredPresentations = [];
   for (const pres of presentations.value) {
     let passBy = false;
     filteredPresentations.forEach((presentation) => {
-      if(presentation.id === pres.id) passBy = true;
+      if (presentation.id === pres.id) passBy = true;
       // presentation.title.forEach((title) => {
       //   if (title === pres.title) passBy = true;
       // });
@@ -147,7 +152,10 @@ const endOfDay = computed(() => {
   let left = 0;
   for (const presentation of presentationsDisplayed.value) {
     // Checks for todays presentations
-    if (new Date(presentation.time).getDate() === date.value.getDate() + parseInt(offset.value)) {
+    if (
+      new Date(presentation.time).getDate() ===
+      date.value.getDate() + parseInt(offset.value)
+    ) {
       //  Checks for any presentations that haven't passed
       if (new Date(presentation.endTime) > date.value) {
         left++;
@@ -162,8 +170,11 @@ const tomorrowCount = computed(() => {
   let count = 0;
   for (const presentation of presentationsDisplayed.value) {
     // Checks for tomorrow's presentations
-    if (new Date(presentation.time).getDate() === date.value.getDate() + 1 + parseInt(offset.value)) {
-      count ++;
+    if (
+      new Date(presentation.time).getDate() ===
+      date.value.getDate() + 1 + parseInt(offset.value)
+    ) {
+      count++;
     }
   }
   return count;

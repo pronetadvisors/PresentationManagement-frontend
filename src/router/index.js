@@ -2,11 +2,11 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
-    path: "/landing/",
+    path: "/",
     component: () => import("@/views/page/Index.vue"),
   },
   {
-    path: "/presentations/",
+    path: "/admin/",
     component: () => import("@/views/page/Presentations.vue"),
   },
   {
@@ -18,7 +18,7 @@ const routes = [
     component: () => import("@/views/page/Rooms.vue"),
   },
   {
-    path: "/",
+    path: "/displays",
     component: () => import("@/views/page/Displays.vue"),
   },
   {

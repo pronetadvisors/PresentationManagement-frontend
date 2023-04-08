@@ -13,10 +13,15 @@ import "./index.css";
 /* Icons */
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
+/* Date Picker */
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+
 const pinia = createPinia();
 
 createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
+  .component("vue-date-picker", VueDatePicker)
   .use(pinia)
   .use(router)
   .use(Notifications)

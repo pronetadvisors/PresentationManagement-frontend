@@ -5,13 +5,17 @@
       alt="Logo"
       class="max-w-full align-center mx-auto"
     />
-    <div class="grid grid-cols-5 gap-4 mb-5 mt-5 pb-5 border-b-2 border-emerald-700">
+    <div
+      class="grid grid-cols-5 gap-4 mb-5 mt-5 pb-5 border-b-2 border-emerald-700"
+    >
       <div class="text-white text-left col-span-2">
         <h1 class="text-6xl font-light">
-          {{ date.toLocaleTimeString([], {
+          {{
+            date.toLocaleTimeString([], {
               hour: "2-digit",
               minute: "2-digit",
-            }) }}
+            })
+          }}
         </h1>
         <h2 class="text-3xl font-light text-gray-100 underline">
           {{ day }}, {{ month }} {{ date.getDate() }}
@@ -59,13 +63,13 @@
         Enter the number of offset in days: Eg. to advance one day, enter "1"
       </label>
       <input
-          id="offset"
-          v-model="offset"
-          type="text"
-          name="offset"
-          placeholder="1"
-          class="border border-2 border-black bg-gray-200"
-          required
+        id="offset"
+        v-model="offset"
+        type="text"
+        name="offset"
+        placeholder="1"
+        class="border border-2 border-black bg-gray-200"
+        required
       />
       <br />
       <br />
