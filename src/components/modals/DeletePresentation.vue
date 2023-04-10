@@ -31,9 +31,9 @@
           </svg>
         </button>
         <div class="py-6 px-6 lg:px-8 text-center">
-          <p class="text-xl text-gray-100">
-            Are you sure you want to delete this Presentation? Deletions are
-            irreversible.
+          <p class="text-xl">
+            Are you sure you want to delete this<br />
+            Presentation? Deletions are irreversible.
           </p>
           <div class="space-y-6 mt-5">
             <button

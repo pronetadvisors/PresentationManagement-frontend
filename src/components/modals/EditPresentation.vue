@@ -289,7 +289,6 @@ async function onSubmit() {
     speaker: speaker.value,
   };
 
-  console.log(presentation);
   await presentationStore.updatePresentation(
     props.presentation.id,
     presentation

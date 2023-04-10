@@ -176,6 +176,7 @@
                   :timezone="timezone"
                 />
               </div>
+              {{ endTime.toISOString() }}
             </div>
             <div class="text-center">
               <button
@@ -248,6 +249,11 @@ const timezones = [
   },
 ];
 
+function offset(timezone_name) {
+  const { offset } = timezones.find((zone) => zone.name === timezone_name);
+  return offset;
+}
+
 function name(timezone_offset) {
   const { name } = timezones.find((zone) => zone.offset === timezone_offset);
   return name;
@@ -279,28 +285,15 @@ function openModal() {
 async function onSubmit() {
   const presentation = {
     session_id: session_id.value,
-    time: `${new Date(time.value)
-      .toJSON()
-      .substring(0, new Date(time.value).toJSON().length - 1)}${
-      timezone.value
-    }`,
-    endtime: `${new Date(endTime.value)
-      .toJSON()
-      .substring(0, new Date(endTime.value).toJSON().length - 1)}${
-      timezone.value
-    }`,
+    time: `${new Date(time.value).toJSON()}`,
+    endtime: `${new Date(endTime.value).toJSON()}`,
     location: location.value,
     title: title.value,
     description: description.value,
     speaker: speaker.value,
   };
 
-  if (timezone.value !== "Z") {
-    presentation.time += ":00";
-    presentation.endtime += ":00";
-  }
-
-  console.log(presentation);
+  // console.log(presentation);
   await presentationStore.createPresentation(presentation);
   isOpen.value = false;
 }
