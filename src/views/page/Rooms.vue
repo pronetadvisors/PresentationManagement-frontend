@@ -200,7 +200,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 // COMPONENTS
-import { computed, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import InfoPresentation from "@/components/modals/InfoPresentation.vue";
 import UploadPresentation from "@/components/modals/UploadPresentation.vue";
 import DownloadRoomFiles from "@/components/modals/DownloadRoomFiles.vue";
@@ -245,7 +245,25 @@ const filteredPresentations = computed(() => {
   });
 });
 
+function updateRoomParam(name) {
+  const url = new URL(window.location.href);
+  url.searchParams.set("room", name);
+  window.history.pushState({}, "", url);
+}
+
+watch(selectedLocation, (newVal, oldVal) => {
+  updateRoomParam(newVal);
+});
+
 // presentationStore.getters.getPresentations()
+onMounted(() => {
+  const queryParams = new URLSearchParams(window.location.search);
+  const roomParam = queryParams.get("room");
+  console.log("Example parameter:", roomParam);
+  if (roomParam != null) {
+    selectedLocation.value = roomParam;
+  }
+});
 </script>
 
 <style scoped></style>
