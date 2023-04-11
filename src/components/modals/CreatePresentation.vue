@@ -176,7 +176,6 @@
                   :timezone="timezone"
                 />
               </div>
-              {{ endTime.toISOString() }}
             </div>
             <div class="text-center">
               <button

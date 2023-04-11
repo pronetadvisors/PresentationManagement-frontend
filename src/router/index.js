@@ -22,6 +22,10 @@ const routes = [
     component: () => import("@/views/page/Displays.vue"),
   },
   {
+    path: "/podium",
+    component: () => import("@/views/page/Podium.vue"),
+  },
+  {
     path: "/demo/",
     component: () => import("@/views/page/DemoDisplay.vue"),
   },
